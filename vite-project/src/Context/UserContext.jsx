@@ -1,44 +1,21 @@
 import React, { createContext, useContext, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  //   signInWithEmailAndPassword,
-  //   signOut,
-  //   onAuthStateChanged,
 } from "firebase/auth";
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
 
-const AuthContext = createContext();
 const AuthSignUpContext = createContext();
 const AuthError = createContext();
 const AuthLoginContext = createContext();
-// import * as admin from 'firebase-admin'
-// import * as funcions from "firebase-functions"
-// import { StreamChat } from 'stream-chat'
+const UserDataContext = createContext();
 
-// admin.initializeApp();
-// const serverClient = StreamChat.getInstance(
-//   "8pm3nq4a7zde",
-//   "ga3xcpyduzxsnbkq8c346xns9q7kt9p5twr59f5ryvfmjua9tbpxepnth9q8em5f"
-// )
-
-// // When a user is created in Firebase an associated Stream acount is also created
-// export const createStreamUser = funcions.auth.user().onCreate(async (user) => {
-//   funcions.logger.log("Firebase user created",user)
-//   const response = await serverClient.upsertUser({
-//     id : user.id,
-//     name : user.displayName,
-//     email : user.email,
-//     image : user.photoURL,
-//   });
-//   funcions.logger.log("Stream user created",response);
-//   return response;
-// })
-
-export function useAuthContext() {
-  return useContext(AuthContext);
+export function useUsersDataContext() {
+  return useContext(UserDataContext);
 }
 
 export function useAuthError() {
@@ -63,47 +40,40 @@ export const UserContext = ({ children }) => {
     appId: "1:756663577649:web:ed6818fedb9890f3bf3910",
   };
 
-  initializeApp(firebaseConfig);
-
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
   const auth = getAuth();
   const [error, setError] = useState({
     isError: false,
     errorMsg: "",
   });
-  const [users, setUser] = useState({
-    id: "",
-    name: "",
-    image: "",
-  });
+
   const navigate = useNavigate();
   function signUp(e) {
     e.preventDefault();
-    console.log(navigate);
     const email = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
-    const phoneNumber = document.querySelector("#Mob").value;
-    const photoURL =
-      "https://getstream.io/random_png/?id=autumn-lake-3&name=autumn-lake-3";
     const displayName = document.querySelector("#name").value;
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         console.log("User added succcessfully");
-        cred.user.displayName = displayName;
-        cred.user.photoURL = photoURL;
-        cred.user.phoneNumber = phoneNumber;
         setError(() => {
           return {
             isError: "",
             errorMsg: "",
           };
         });
-        setUser((prevUser) => {
-          return {
-            id: cred.user.uid,
-            name: displayName,
-            image: "https://source.unsplash.com/random/50x50/?profile",
-          };
-        });
+
+        const user = {
+          id: uuidv4(),
+          name: displayName,
+          photoUrl: "https://source.unsplash.com/random/50x50/?profile",
+          role: "default",
+        };
+
+        
+        const dbRef = ref(db, `users/${auth.currentUser.uid}`);
+        set(dbRef, user);
         navigate("chat");
       })
       .catch((err) => {
@@ -120,15 +90,17 @@ export const UserContext = ({ children }) => {
     e.preventDefault();
     const email = document.querySelector("#emailLogin").value;
     const password = document.querySelector("#passwordLogin").value;
-    signInWithEmailAndPassword(auth,email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         console.log("User Logged in succcessfully");
+
         setError(() => {
           return {
             isError: "",
             errorMsg: "",
           };
         });
+
         navigate("chat");
       })
       .catch((err) => {
@@ -142,14 +114,14 @@ export const UserContext = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={users}>
-      <AuthSignUpContext.Provider value={signUp}>
-        <AuthError.Provider value={{value : [error,setError]}}>
-          <AuthLoginContext.Provider value={signIn}>
+    <AuthSignUpContext.Provider value={signUp}>
+      <AuthError.Provider value={{ error, setError }}>
+        <AuthLoginContext.Provider value={signIn}>
+          <UserDataContext.Provider value={{auth,onValue,db,ref}}>
             {children}
-          </AuthLoginContext.Provider>
-        </AuthError.Provider>
-      </AuthSignUpContext.Provider>
-    </AuthContext.Provider>
+          </UserDataContext.Provider>
+        </AuthLoginContext.Provider>
+      </AuthError.Provider>
+    </AuthSignUpContext.Provider>
   );
 };

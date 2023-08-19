@@ -1,23 +1,48 @@
 import Talk from "talkjs";
-import { useEffect, useState, useRef } from "react";
-import { contactsList } from "../Users";
+import { useEffect, useState,useRef,useLayoutEffect } from "react";
+import { ContactsList } from "../Users";
 import Contacts from "../Contacts/Contacts";
-import logo from "../logo/png/logo-no-background.png";
-import { Link } from "react-router-dom";
-import { useAuthContext } from "../Context/UserContext";
-// import { useMediaQuery } from "react-responsive";
+import { useUsersDataContext } from "../Context/UserContext";
 
 export default function MyChatComponent() {
-  const users = useAuthContext();
-  // const [show, setShow] = useState(false);
-  // const screenWidth = useMediaQuery({
-  //   query: "(min-width: 768px)",
-  // });
-  const Contact = contactsList.map((element) => {
-    return (
-      <Contacts img={element.photoUrl} name={element.name} key={element.id} />
-    );
+  const {db,ref,auth,onValue} = useUsersDataContext();
+  const dataCheckRef = useRef(false)
+  const [userObjectData,setUserObjectData] = useState({
+    id: auth.currentUser.uid,
+    name: 'User Not Found',
+    photoUrl: `https://source.unsplash.com/random/50x50/?profile`,
+    role: "default"
   });
+
+  console.log(auth.currentUser)
+
+  useLayoutEffect(() => {
+    const readRef = ref(db, `users/${auth.currentUser.uid}`);
+    onValue(readRef, (snapshot) => {
+      const dataValue = snapshot.val();
+      setUserObjectData((prev) => {
+        return{
+          ...prev,
+          id : dataValue.id,
+          name : dataValue.name,
+          photoUrl : dataValue.photoUrl,
+          role : dataValue.role
+        }
+      });
+    })
+  },[]);
+
+  console.log(userObjectData)
+
+  if(!dataCheckRef.current){
+    ContactsList.push(userObjectData);
+    dataCheckRef.current = true;
+  };
+
+  const Contact = ContactsList.map((element, index) => {
+    return <Contacts img={element.photoUrl} name={element.name} key={index} />;
+  });
+
 
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
@@ -26,20 +51,7 @@ export default function MyChatComponent() {
     Talk.ready.then(() => markTalkLoaded(true));
 
     if (talkLoaded) {
-      const random = Math.floor((Math.random() * 8) + 1)
-      console.log(random)
-      let me = new Talk.User({
-        id: "0",
-        name: users.name || "Arsalan",
-        photoUrl: `https://talkjs.com/images/avatar-${random}.jpg`,
-        role: "default",
-      });
-
-      // let me = new Talk.User({
-      //   id: "0",
-      //   name: "Arsalan",
-      //   photoUrl: "https://talkjs.com/images/avatar-5.jpg",
-      // });
+      let me = new Talk.User(userObjectData);
 
       const session = new Talk.Session({
         appId: "tngwoxsK",
@@ -49,7 +61,7 @@ export default function MyChatComponent() {
       chatbox.mount(document.querySelector("#talkjs-container"));
 
       // Create conversationBuilder objects for each user
-      const conversations = contactsList.map(function (user, index) {
+      const conversations = ContactsList.map(function (user, index) {
         const talkUser = new Talk.User(user);
 
         const conversation = session.getOrCreateConversation(
@@ -75,30 +87,18 @@ export default function MyChatComponent() {
   //inbox-feed-panel and inbox-chat-panel.
   return (
     <div className="grid grid-cols-4">
-      {/* {show | screenWidth ? ( */}
-        <div className="flex flex-col bg-blue-400">
-          <div className="flex ">
-            <Link to="/">
-              <img src={logo} alt="" className=" bg-blue-500 h-16 w-96" />
-            </Link>
-          </div>
-          <h1 className="text-center font-semibold md:font-bold text-xl sm:text-2xl md:text-3xl">
-            Contacts
-          </h1>
-          {Contact}
-        </div>
-      {/* ) : (
-        ""
-      )} */}
-      {/* {(screenWidth & show) && */}
+      <div className="flex flex-col bg-blue-400">
+        <h1 className="text-center mt-4 font-semibold md:font-bold text-xl sm:text-2xl md:text-3xl">
+          Contacts
+        </h1>
+        {Contact}
+      </div>
       <div
         id="talkjs-container"
         className="col-span-3 rounded-none sticky h-screen top-0 text-white"
-        // onClick={() => setShow((prev) => !prev)}
       >
         <div></div>
       </div>
-     {/* }  */}
     </div>
   );
 }

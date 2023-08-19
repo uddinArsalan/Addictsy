@@ -38,8 +38,8 @@
    "density": "4.0"
   }
  ],
- "theme_color": "#eab308",
- "background_color": "#eab308",
+ "theme_color": "#FFFFFF",
+ "background_color": "#FFFFFF",
  "display": "standalone",
  "scope": "/",
  "start_url": "https://addictsy.netlify.app/"

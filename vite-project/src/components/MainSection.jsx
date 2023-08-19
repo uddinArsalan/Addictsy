@@ -92,7 +92,7 @@ const MainSection = ({ menu }) => {
               Dial 988 then Press 1
             </div>
             <div className="flex mt-6 flex-wrap">
-              <div>
+            <Link to="login" ><div>
                 <div className="md:w-40 w-48 mb-6 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
                   <span>
                     <FontAwesomeIcon icon={faMessage} />
@@ -100,6 +100,7 @@ const MainSection = ({ menu }) => {
                   Chat Online
                 </div>
               </div>
+              </Link>
               <div>
                 <div className="md:w-36 w-40 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl cursor-pointer hover:bg-blue-900">
                   <span>
@@ -122,13 +123,14 @@ const MainSection = ({ menu }) => {
             <img
               src="https://source.unsplash.com/640x600/?addiction"
               alt=""
+              loading="lazy"
               className="rounded-3xl object-cover"
             />
             {/*  md:mt-8 lg:mt-24 mb-12 md:mr-12 md:ml-0 m-12 */}
           </div>
         </div>
         <div>
-          <div className="grid grid-cols-1 h-72">
+          <div className="grid grid-cols-1">
             {/* grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-y-10 */}
             <div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-y-10 bg-bodyBG p-24">
               <div>

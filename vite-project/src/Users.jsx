@@ -1,6 +1,8 @@
-import logo from './logo/png/logo-black-removebg-preview.png'
+const random = Math.floor((Math.random() * 8) + 1);
+import logo from './logo/png/logo-black.png'
+
 // import logo from './logo/png/My project.png'
-export const contactsList = [
+export const ContactsList = [
     {
         id: 10,
         name: 'Addictsy Aid',

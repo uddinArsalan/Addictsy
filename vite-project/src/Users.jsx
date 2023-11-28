@@ -4,7 +4,7 @@ import logo from './logo/png/logo-black.png'
 // import logo from './logo/png/My project.png'
 export const ContactsList = [
     {
-        id: 10,
+        id: 0,
         name: 'Addictsy Aid',
         photoUrl: `${logo}`,
         role: "default"

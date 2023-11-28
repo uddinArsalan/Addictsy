@@ -42,5 +42,5 @@
  "background_color": "#FFFFFF",
  "display": "standalone",
  "scope": "/",
- "start_url": "https://addictsy.netlify.app/"
+ "start_url": "https://addictsy.vercel.app/"
 }

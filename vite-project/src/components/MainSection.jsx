@@ -59,12 +59,13 @@ const MainSection = ({ menu }) => {
             </span>
             Dial 988 then Press 1
           </div>
-          <Link to="login"><div className="mb-6 w-4/5 md:w-3/5 p-2 bg-menuBtn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
-            <span>
-              <FontAwesomeIcon icon={faMessage} />
-            </span>
-            Chat
-          </div>
+          <Link to="login">
+            <div className="mb-6 w-4/5 md:w-3/5 p-2 bg-menuBtn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
+              <span>
+                <FontAwesomeIcon icon={faMessage} />
+              </span>
+              Chat
+            </div>
           </Link>
           <div className=" p-2 w-4/5 md:w-3/5 bg-menuBtn flex justify-evenly rounded-full items-center text-bold text-white text-xl cursor-pointer hover:bg-blue-900">
             <span>
@@ -92,14 +93,15 @@ const MainSection = ({ menu }) => {
               Dial 988 then Press 1
             </div>
             <div className="flex mt-6 flex-wrap">
-            <Link to="login" ><div>
-                <div className="md:w-40 w-48 mb-6 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
-                  <span>
-                    <FontAwesomeIcon icon={faMessage} />
-                  </span>
-                  Chat Online
+              <Link to="login">
+                <div>
+                  <div className="md:w-40 w-48 mb-6 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
+                    <span>
+                      <FontAwesomeIcon icon={faMessage} />
+                    </span>
+                    Chat Online
+                  </div>
                 </div>
-              </div>
               </Link>
               <div>
                 <div className="md:w-36 w-40 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl cursor-pointer hover:bg-blue-900">
@@ -130,52 +132,44 @@ const MainSection = ({ menu }) => {
           </div>
         </div>
         <div>
-          <div className="grid grid-cols-1">
+          
             {/* grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-y-10 */}
-            <div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-y-10 bg-bodyBG p-24">
-              <div>
-                <div className="flex flex-col justify-center items-center">
+            <div className="grid md:grid-cols-3 grid-cols-1 md:gap-3 gap-y-10 mt-16 bg-bodyBG lg:p-24 md:p-16 p-12">
+              
+                <div className="flex flex-col justify-center items-center gap-2">
                   <img src={clock} className="w-16" alt="" />
-                  <div className="text-3xl text-textColor mb-3 mt-3">
-                    24/7 Support
-                  </div>
+                  <div className="text-3xl text-textColor">24/7 Support</div>
                   <div className="text-gray-600 text-center">
                     Access free, confidential support 24/7, 365 days a year.
                   </div>
                 </div>
-              </div>
-              <div>
-                <div className="flex flex-col justify-center items-center">
+             
+                <div className="flex flex-col justify-center items-center gap-2">
                   <img src={live} className="w-16" alt="" />
-                  <div className="text-3xl text-textColor mb-3 mt-3">
-                    Live Connection
-                  </div>
+                  <div className="text-3xl text-textColor">Live Connection</div>
                   <div className="text-gray-600 text-center">
                     Connect with a real person qualified to support Veterans.
                   </div>
                 </div>
-              </div>
-              <div>
-                <div className="flex flex-col justify-center items-center">
+
+                <div className="flex flex-col justify-center items-center gap-2">
                   <img src={frnd} className="w-16" alt="" />
-                  <div className="text-3xl text-textColor mb-3 mt-3">
-                    Our Services
-                  </div>
-                  <div className="text-gray-600 text-center">
-                   <div>One-on-one support and guidance</div> 
-                    <div>Access to resources and
-                    support groups Private and secure chat platform</div> 
-                  </div>
+                  <div className="text-3xl text-textColor">Our Services</div>
+                  <div className="text-gray-600 text-center"> 
+                    One-on-one support and guidance
+                      Access to resources and support groups Private and secure
+                      chat platform
+                    <div>
                 </div>
+
               </div>
             </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FCFCFC" fillOpacity="1" d="M0,64L80,74.7C160,85,320,107,480,122.7C640,139,800,149,960,144C1120,139,1280,117,1360,106.7L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg>
           </div>
         </div>
       </div>
-
     </>
   );
 };
 
 export default MainSection;
+

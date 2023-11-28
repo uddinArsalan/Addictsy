@@ -1,48 +1,23 @@
 import Talk from "talkjs";
-import { useEffect, useState,useRef,useLayoutEffect } from "react";
+import { useEffect, useState, useRef, forwardRef } from "react";
 import { ContactsList } from "../Users";
 import Contacts from "../Contacts/Contacts";
-import { useUsersDataContext } from "../Context/UserContext";
+import { useUserData } from "./useUserData";
+console.log(import.meta.env.VITE_APP_ID);
 
 export default function MyChatComponent() {
-  const {db,ref,auth,onValue} = useUsersDataContext();
-  const dataCheckRef = useRef(false)
-  const [userObjectData,setUserObjectData] = useState({
-    id: auth.currentUser.uid,
-    name: 'User Not Found',
-    photoUrl: `https://source.unsplash.com/random/50x50/?profile`,
-    role: "default"
-  });
+  const userObjectData = useUserData();
+  const talkjsRef = useRef();
+  const contactsListRefs = useRef([]);
+  const [updatedContactList, setContactsList] = useState(ContactsList);
+  
 
-  console.log(auth.currentUser)
-
-  useLayoutEffect(() => {
-    const readRef = ref(db, `users/${auth.currentUser.uid}`);
-    onValue(readRef, (snapshot) => {
-      const dataValue = snapshot.val();
-      setUserObjectData((prev) => {
-        return{
-          ...prev,
-          id : dataValue.id,
-          name : dataValue.name,
-          photoUrl : dataValue.photoUrl,
-          role : dataValue.role
-        }
-      });
-    })
-  },[]);
-
-  console.log(userObjectData)
-
-  if(!dataCheckRef.current){
-    ContactsList.push(userObjectData);
-    dataCheckRef.current = true;
-  };
-
-  const Contact = ContactsList.map((element, index) => {
-    return <Contacts img={element.photoUrl} name={element.name} key={index} />;
-  });
-
+  useEffect(() => {
+    // check if userObjectData has been updated or not 
+    if (userObjectData.name !== "User Not Found") {
+      setContactsList((prevContacts) => [userObjectData, ...prevContacts]);
+    }
+  }, [userObjectData]);
 
   // wait for TalkJS to load
   const [talkLoaded, markTalkLoaded] = useState(false);
@@ -54,14 +29,17 @@ export default function MyChatComponent() {
       let me = new Talk.User(userObjectData);
 
       const session = new Talk.Session({
-        appId: "tngwoxsK",
+        appId: import.meta.env.VITE_APP_ID,
         me: me,
       });
       const chatbox = session.createChatbox();
-      chatbox.mount(document.querySelector("#talkjs-container"));
+      chatbox.mount(talkjsRef.current);
 
+      const handleContactClick = (index) => {
+        chatbox.select(conversations[index]);
+      };
       // Create conversationBuilder objects for each user
-      const conversations = ContactsList.map(function (user, index) {
+      const conversations = updatedContactList.map(function (user, index) {
         const talkUser = new Talk.User(user);
 
         const conversation = session.getOrCreateConversation(
@@ -72,17 +50,16 @@ export default function MyChatComponent() {
 
         return conversation;
       });
-
-      let contactsListDivs = document.querySelectorAll(".contacts-list");
-      conversations.forEach(function (conversation, index) {
-        contactsListDivs[index].addEventListener("click", function () {
-          chatbox.select(conversation);
+      updatedContactList.forEach((user, index) => {
+        // Attach click handlers using the element's ref
+        contactsListRefs.current[index]?.addEventListener("click", () => {
+         handleContactClick(index)
         });
       });
 
       return () => session.destroy();
     }
-  }, [talkLoaded]);
+  }, [talkLoaded,updatedContactList,userObjectData]);
 
   //inbox-feed-panel and inbox-chat-panel.
   return (
@@ -91,10 +68,15 @@ export default function MyChatComponent() {
         <h1 className="text-center mt-4 font-semibold md:font-bold text-xl sm:text-2xl md:text-3xl">
           Contacts
         </h1>
-        {Contact}
+        {updatedContactList.map((element, index) => {
+          return (
+            <Contacts ref={(el) => (contactsListRefs.current[index] = el)} img={element.photoUrl} name={element.name} key={index} />
+          );
+        })}
       </div>
       <div
         id="talkjs-container"
+        ref={talkjsRef}
         className="col-span-3 rounded-none sticky h-screen top-0 text-white"
       >
         <div></div>

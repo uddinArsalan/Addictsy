@@ -51,13 +51,13 @@ const Login = () => {
   const signUp = useAuthSignUpContext();
   const signIn = useAuthLoginContext();
   return (
-    <>
+    <div className="">
       <Nav />
-      <div className="bg-textColor h-screen flex justify-center">
-        <div className="bg-bodyBG p-12 m-6 h-4/5 mt-12 rounded-md relative">
+      <div className="bg-textColor relative flex justify-center p-8">
+        <div className="bg-bodyBG rounded-md relative min-w-fit w-2/4">
           <div
             style={signUpStyle}
-            className="text-center font-semibold text-2xl absolute top-0 left-0 w-1/2 p-4 cursor-pointer"
+            className="text-center font-semibold text-2xl top-0 left-0 w-1/2 p-4 cursor-pointer"
             onClick={() => {
               setError(() => {
                 return {
@@ -95,16 +95,16 @@ const Login = () => {
           >
             Sign In
           </div>
-          <form className="form mt-12 rounded-md">
+          <form className="form rounded-md p-8 min-h-fit">
             {error.isError && (
-              <div className="p-2 bg-red-400 rounded-lg text-white mt-8 flex justify-center">
+              <div className="p-2 bg-red-400 relative rounded-lg text-white">
                 {error.errorMsg}
               </div>
             )}
             {user.signUp ? (
-              <div className="grid grid-cols-1 grid-rows-6 gap-2 place-items-center">
+              <div className="flex flex-col gap-4 ">
                 <div className="text-2xl font-bold text-blue-600">New User ? <span className="text-blue-900 underline">SignUp</span> </div>
-                <div className="grid grid-cols-2 place-items-center">
+                <div className="flex flex-col">
                   <label htmlFor="name" className="text-xl font-semibold">
                     Name:{" "}
                   </label>
@@ -115,10 +115,10 @@ const Login = () => {
                     placeholder="Name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="p-2 border-gray-300 border-2 rounded-lg"
+                    className="p-2 border-gray-300 border-2 rounded-lg w-full"
                   />
                 </div>
-                <div className="grid grid-cols-2 place-items-center">
+                <div className="flex flex-col">
                   <label htmlFor="Mob" className="text-xl font-semibold">
                     Mobile Number:{" "}
                   </label>
@@ -132,7 +132,7 @@ const Login = () => {
                     className=" p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                <div className="grid grid-cols-2 place-items-center">
+                <div className="flex flex-col">
                   <label htmlFor="email" className="text-xl font-semibold">
                     Email Address:{" "}
                   </label>
@@ -146,7 +146,7 @@ const Login = () => {
                     className="p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                <div className="grid grid-cols-2 place-items-center">
+                <div className="flex flex-col">
                   <label htmlFor="password" className="text-xl font-semibold">
                     Password :{" "}
                   </label>
@@ -160,24 +160,8 @@ const Login = () => {
                     className="p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                {/* <div>
-            <div className="relative md:w-96 w-52 cursor-pointer h-10 mt-0">
-              <div className="absolute flex justify-between md:w-96 p-2 cursor-pointer border-gray-300 border-2 rounded-lg">
-                <div className="font-semibold flex items-center text-textColor">Choose your Profile Pic</div>
-                <div><img src="https://talkjs.com/images/avatar-1.jpg" alt="" className="rounded-full w-12 img"/></div>
-              </div>
-              <label htmlFor="image"></label>
-              <input
-                type="file"
-                name="image"
-                id="image"
-                className="md:w-96 p-2 z-2 opacity-0 absolute border-gray-300 border-2 rounded-lg cursor-pointer"
-                onChange={loadFile}
-              />
-            </div>
-            </div> */}
                 <button
-                  className="bg-btn p-2 m-4 rounded-md text-white text-center border-menuBtn border-2"
+                  className="bg-btn p-2 rounded-md text-white text-center border-menuBtn border-2"
                   onClick={signUp}
                 >
                   Sign Up
@@ -185,9 +169,9 @@ const Login = () => {
               </div>
             ) : (
               <>
-              <div className="grid grid-cols-1 grid-rows-4 gap-16 place-items-center">
+              <div className="flex flex-col gap-4 ">
                 <div className="text-2xl font-bold text-blue-600">Already Registered ? <span className="text-blue-900 underline">Login</span> </div>
-                <div className="grid grid-cols-2 place-items-center">
+                <div className="flex flex-col">
                   <label htmlFor="emailLogin" className="font-semibold text-xl">
                     Email :{" "}
                   </label>
@@ -199,7 +183,7 @@ const Login = () => {
                     className="p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                <div className="grid grid-cols-2 place-items-center">
+                <div className="flex flex-col">
                   <label
                     htmlFor="passwordLogin"
                     className="font-semibold text-xl"
@@ -226,8 +210,24 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Login;
+{/* <div>
+            <div className="relative md:w-96 w-52 cursor-pointer h-10 mt-0">
+              <div className="absolute flex justify-between md:w-96 p-2 cursor-pointer border-gray-300 border-2 rounded-lg">
+                <div className="font-semibold flex items-center text-textColor">Choose your Profile Pic</div>
+                <div><img src="https://talkjs.com/images/avatar-1.jpg" alt="" className="rounded-full w-12 img"/></div>
+              </div>
+              <label htmlFor="image"></label>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                className="md:w-96 p-2 z-2 opacity-0 absolute border-gray-300 border-2 rounded-lg cursor-pointer"
+                onChange={loadFile}
+              />
+            </div>
+            </div> */}

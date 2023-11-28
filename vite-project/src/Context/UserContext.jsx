@@ -54,6 +54,7 @@ export const UserContext = ({ children }) => {
     const email = document.querySelector("#email").value;
     const password = document.querySelector("#password").value;
     const displayName = document.querySelector("#name").value;
+    // console.log(email,displayName,password)
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         console.log("User added succcessfully");
@@ -67,7 +68,7 @@ export const UserContext = ({ children }) => {
         const user = {
           id: uuidv4(),
           name: displayName,
-          photoUrl: "https://source.unsplash.com/random/50x50/?profile",
+          photoUrl: "https://source.unsplash.com/random/?profile",
           role: "default",
         };
 

@@ -64,20 +64,20 @@ export default function MyChatComponent() {
   //inbox-feed-panel and inbox-chat-panel.
   return (
     <div className="grid grid-cols-4">
-      <div className="flex flex-col bg-blue-400">
-        <h1 className="text-center mt-4 font-semibold md:font-bold text-xl sm:text-2xl md:text-3xl">
+      <div className="flex flex-col gap-4 bg-blue-400">
+        <h1 className="text-center font-semibold mt-4 md:font-bold text-xl sm:text-2xl md:text-3xl">
           Contacts
         </h1>
         {updatedContactList.map((element, index) => {
           return (
-            <Contacts ref={(el) => (contactsListRefs.current[index] = el)} img={element.photoUrl} name={element.name} key={index} />
+            <Contacts ref={(el) => (contactsListRefs.current[index] = el)} img={element.photoUrl} isMe={element.role} name={element.name} key={index} />
           );
         })}
       </div>
       <div
         id="talkjs-container"
         ref={talkjsRef}
-        className="col-span-3 rounded-none sticky h-screen top-0 text-white"
+        className="col-span-3 rounded-none sticky h-screen top-0"
       >
         <div></div>
       </div>

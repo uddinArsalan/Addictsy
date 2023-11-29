@@ -14,6 +14,7 @@ const Navbar = ({ menu, setMenu }) => {
 
   return (
     <div className="p-10 pt-0 pr-0 bg-bodyBG flex justify-between items-center lg:z-10 lg:fixed top-0 right-0 left-0">
+      {/* <i className="fa-solid fa-arrow-left"></i> */}
       <Link to="/"><img src={logo} alt="" className="w-44 mt-8 bg-btn rounded-lg " /></Link>
       <div className="p-4 h-10 text-center font-semibold bg-btn text-white flex justify-center items-center lg:hidden rounded-3xl mt-8 mr-4 cursor-pointer" onClick={() => setMenu(prev => !prev)}>
         Menu

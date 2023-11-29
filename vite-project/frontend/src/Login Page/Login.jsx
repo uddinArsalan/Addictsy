@@ -53,11 +53,11 @@ const Login = () => {
   return (
     <div className="">
       <Nav />
-      <div className="bg-textColor relative flex justify-center p-8">
-        <div className="bg-bodyBG rounded-md relative min-w-fit w-2/4">
+      <div className="bg-textColor relative min-h-screen flex justify-center">
+        <div className="bg-bodyBG rounded-md relative h-fit mt-16">
           <div
             style={signUpStyle}
-            className="text-center font-semibold text-2xl top-0 left-0 w-1/2 p-4 cursor-pointer"
+            className="text-center font-semibold rounded-tl-md text-2xl top-0 left-0 w-1/2 p-4 cursor-pointer"
             onClick={() => {
               setError(() => {
                 return {
@@ -77,7 +77,7 @@ const Login = () => {
           </div>
           <div
             style={signInStyle}
-            className="text-center font-semibold text-2xl absolute top-0 right-0 w-1/2 p-4 cursor-pointer"
+            className="text-center font-semibold rounded-tr-md text-2xl absolute top-0 right-0 w-1/2 p-4 cursor-pointer"
             onClick={() => {
               setError(() => {
                 return {
@@ -95,16 +95,16 @@ const Login = () => {
           >
             Sign In
           </div>
-          <form className="form rounded-md p-8 min-h-fit">
+          <form className="form rounded-md p-8">
             {error.isError && (
               <div className="p-2 bg-red-400 relative rounded-lg text-white">
                 {error.errorMsg}
               </div>
             )}
             {user.signUp ? (
-              <div className="flex flex-col gap-4 ">
-                <div className="text-2xl font-bold text-blue-600">New User ? <span className="text-blue-900 underline">SignUp</span> </div>
-                <div className="flex flex-col">
+              <div className="flex flex-col gap-4">
+                <div className="text-2xl font-bold text-blue-600 text-center">New User ? <span className="text-blue-900 underline">SignUp</span> </div>
+                <div className="flex items-center gap-4 justify-between">
                   <label htmlFor="name" className="text-xl font-semibold">
                     Name:{" "}
                   </label>
@@ -115,12 +115,12 @@ const Login = () => {
                     placeholder="Name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="p-2 border-gray-300 border-2 rounded-lg w-full"
+                    className="p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex items-center gap-4 justify-between">
                   <label htmlFor="Mob" className="text-xl font-semibold">
-                    Mobile Number:{" "}
+                    Mobile No:{" "}
                   </label>
                   <input
                     type="number"
@@ -132,9 +132,9 @@ const Login = () => {
                     className=" p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex items-center gap-4 justify-between">
                   <label htmlFor="email" className="text-xl font-semibold">
-                    Email Address:{" "}
+                    Email Add:{" "}
                   </label>
                   <input
                     type="email"
@@ -146,7 +146,7 @@ const Login = () => {
                     className="p-2 border-gray-300 border-2 rounded-lg"
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex items-center gap-4 justify-between">
                   <label htmlFor="password" className="text-xl font-semibold">
                     Password :{" "}
                   </label>
@@ -199,7 +199,7 @@ const Login = () => {
                   />
                 </div>
                 <button
-                  className="bg-btn p-2 rounded-md text-white text-center border-menuBtn border-2"
+                  className="bg-btn p-2 rounded-md text-white text-center border-menuBtn"
                   onClick={signIn}
                 >
                   Sign In

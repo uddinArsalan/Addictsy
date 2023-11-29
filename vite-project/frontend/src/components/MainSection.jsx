@@ -1,77 +1,60 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPhone,
-  faMessage,
-  faMobile,
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
-// import main from "../logo/main.jpg";
 import clock from "../logo/wall-clock.png";
 import live from "../logo/live.png";
 import frnd from "../logo/friends.png";
 import { Link } from "react-router-dom";
+// import Request from "../Request";
 
 const MainSection = ({ menu }) => {
   return (
     <>
       {menu && (
-        <div className="flex flex-col p-8 rounded-lg shadow-2xl m-3 border-gray-500 justify-evenly">
+        <div className="flex flex-col gap-2 p-8 rounded-lg shadow-2xl m-3 border-gray-500 justify-evenly">
           <div className="text-lg text-textColor font-semibold mb-3">
             How We Help
             <span>
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="text-dropDownArrow ml-2"
-              />
+              <i className="fa-solid fa-chevron-down text-dropDownArrow ml-2"></i>
             </span>
           </div>
           <div className="text-lg text-textColor font-semibold mb-3">
             Sign of Crisis
             <span>
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="text-dropDownArrow ml-2"
-              />
+            <i className="fa-solid fa-chevron-down text-dropDownArrow ml-2"></i>
             </span>
           </div>
           <div className="text-lg text-textColor font-semibold mb-3">
             Resources and Support
             <span>
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="text-dropDownArrow ml-2"
-              />
+            <i className="fa-solid fa-chevron-down text-dropDownArrow ml-2"></i>
             </span>
           </div>
           <div className="text-lg text-textColor font-semibold">
             About
             <span>
-              <FontAwesomeIcon
-                icon={faChevronDown}
-                className="text-dropDownArrow ml-2"
-              />
+            <i className="fa-solid fa-chevron-down text-dropDownArrow ml-2"></i>
             </span>
           </div>
-          <div className="p-2 w-4/5 md:w-3/5 mb-4 mt-4 bg-menuBtn flex justify-evenly rounded-full items-center text-bold text-white text-xl hover:bg-blue-900 cursor-pointer">
+          <div className="flex flex-col gap-4">
+          <div className="p-3 bg-menuBtn flex rounded-full items-center md:text-bold text-white text-base gap-4 w-fit md:text-xl hover:bg-blue-900 cursor-pointer flex-wrap">
             <span>
-              <FontAwesomeIcon icon={faPhone} />
+            <i className="fa-solid fa-mobile-screen-button text-sm"></i>
             </span>
             Dial 988 then Press 1
           </div>
           <Link to="login">
-            <div className="mb-6 w-4/5 md:w-3/5 p-2 bg-menuBtn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
+            <div className="p-2 w-24 bg-menuBtn flex justify-evenly rounded-full items-center md:text-bold text-white text-base md:text-xl cursor-pointer hover:bg-blue-900">
               <span>
-                <FontAwesomeIcon icon={faMessage} />
+              <i className="fa-regular fa-message text-sm"></i>
               </span>
               Chat
             </div>
           </Link>
-          <div className=" p-2 w-4/5 md:w-3/5 bg-menuBtn flex justify-evenly rounded-full items-center text-bold text-white text-xl cursor-pointer hover:bg-blue-900">
+          <div className="p-2 w-28 bg-menuBtn flex justify-evenly rounded-full items-center md:text-bold text-white md:text-xl text-base cursor-pointer hover:bg-blue-900">
             <span>
-              <FontAwesomeIcon icon={faMobile} />
+              <i className="fa-solid fa-mobile-screen-button text-sm"></i>
             </span>
             Text Us
+          </div>
           </div>
         </div>
       )}
@@ -80,6 +63,7 @@ const MainSection = ({ menu }) => {
           <div className="flex flex-col lg:pt-48 lg:p-24 p-6">
             <div className="font-bold md:text-5xl text-4xl text-textColor mb-6">
               24/7, confidential crisis support
+
             </div>
             <div className="font-semibold text-lg text-gray-700 mb-6">
               One small step is worth more than a thousand steps planned. -
@@ -88,7 +72,7 @@ const MainSection = ({ menu }) => {
             </div>
             <div className="p-2 w-60 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl hover:bg-blue-900 cursor-pointer">
               <span>
-                <FontAwesomeIcon icon={faPhone} />
+              <i className="fa-solid fa-mobile-screen-button"></i>
               </span>
               Dial 988 then Press 1
             </div>
@@ -97,7 +81,7 @@ const MainSection = ({ menu }) => {
                 <div>
                   <div className="md:w-40 w-48 mb-6 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl mr-6 cursor-pointer hover:bg-blue-900">
                     <span>
-                      <FontAwesomeIcon icon={faMessage} />
+                    <i className="fa-regular fa-message"></i>
                     </span>
                     Chat Online
                   </div>
@@ -106,7 +90,7 @@ const MainSection = ({ menu }) => {
               <div>
                 <div className="md:w-36 w-40 p-2 bg-btn flex justify-evenly rounded-full items-center text-bold text-white text-xl cursor-pointer hover:bg-blue-900">
                   <span>
-                    <FontAwesomeIcon icon={faMobile} />
+                  <i className="fa-solid fa-mobile-screen-button"></i>
                   </span>
                   Text Us
                 </div>
@@ -118,7 +102,9 @@ const MainSection = ({ menu }) => {
               start from now and make a brand new ending.
             </div>
             <span className="text-xl font-semibold italic mt-3">
-              ~Carl Bard
+              ~ Carl Bard
+              {/* <Request name="Alice" email="alice@example.com" id={12081}/>
+              <Request name="Bob" email="bob@example.com" id={8029}/> */}
             </span>
           </div>
           <div className="flex justify-center m-6 lg:mt-24">

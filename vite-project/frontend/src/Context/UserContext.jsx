@@ -68,8 +68,8 @@ export const UserContext = ({ children }) => {
         const user = {
           id: uuidv4(),
           name: displayName,
-          photoUrl: "https://source.unsplash.com/random/?profile",
-          role: "default",
+          photoUrl: "https://source.unsplash.com/random/80x80/?profile",
+          role: "me",
         };
 
         
